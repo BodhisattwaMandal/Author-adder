@@ -7,12 +7,12 @@ import json
 import re
 
 summary = 'Bot: Prova'
-site = pywikibot.Site('it', 'wikisource')
+site = pywikibot.Site('bn', 'wikisource')
 
 
 def get_authors_list():
     authors = []
-    category = pywikibot.Category(site, 'Categoria:Autori')
+    category = pywikibot.Category(site, 'বিষয়শ্রেণী:পুরুষ_লেখক')
     gen = pagegenerators.CategorizedPageGenerator(category)
     for page in pagegenerators.PreloadingGenerator(gen):
         authors.append(page.title(withNamespace=False))
@@ -60,10 +60,10 @@ class AuthorBot(Bot):
                 if re.search(r'(\b%s\b)' % re.escape(author), text):
                     if self.authors[author] == author:
                         text = text.replace(
-                            author, u'{{AutoreCitato|%s}}' % author)
+                            author, u'{{AC|%s}}' % author)
                     else:
                         text = text.replace(
-                            author, u'{{AutoreCitato|%s|%s}}'
+                            author, u'{{AC|%s|%s}}'
                                     % (self.authors[author], author))
             if page.text != text:
                 if self.auto:
